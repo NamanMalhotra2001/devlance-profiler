@@ -92,6 +92,7 @@ const Tab = styled.span`
 `;
 
 const Container = styled.div`
+	user-select: none;
 	display: flex;
 	justify-content: center;
 	align-items: center;
