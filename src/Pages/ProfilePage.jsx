@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { mobile } from '../responsive';
 // Components
 import Navigator from '../Components/Navigator';
+import PersonalTab from '../Components/PersonalTab';
 
 function ProfilePage() {
 	// ########## states ##########
@@ -30,10 +31,8 @@ function ProfilePage() {
 					<Photo src={profile.picture.large} alt='' />
 
 					<TabContainer>
-						<FieldContainer>
-							<Label>Name</Label>
-							<Field />
-						</FieldContainer>
+						<PersonalTab />
+						<EditButton>Edit</EditButton>
 					</TabContainer>
 
 					<Navigator
@@ -49,47 +48,37 @@ function ProfilePage() {
 export default ProfilePage;
 
 // ########## styled components ##########
-const Field = styled.input`
-	width: 50%;
-	height: 2.5rem;
-	border: solid 1px black;
-	border-radius: 10px;
-`;
-
-const Label = styled.h1`
-	font-size: 2rem;
+const EditButton = styled.button`
+	position: absolute;
+	width: 20%;
+	bottom: 5%;
 	font-family: Dongle;
-	width: 5rem;
-	/* text-align: center; */
-`;
-
-const FieldContainer = styled.div`
-	width: 100%;
-	/* background-color: red; */
-	display: flex;
-	justify-content: left;
-	align-items: center;
+	font-size: 1.6rem;
+	border-radius: 1rem;
 `;
 
 const TabContainer = styled.div`
 	background-color: white;
-	margin-top: 15%;
-	padding-top: 12%;
-	padding-left: 5%;
-	padding-right: 5%;
-	border-radius: 1rem;
+	position: relative;
 	width: 70%;
-	height: 48%;
+	min-height: 60%;
+	margin-top: 15%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 1rem;
 
 	${mobile({
 		width: '85%',
-		marginTop: '40%',
-		paddingTop: '40%',
+		minHeight: '30%',
+		marginTop: '15vh',
+		padding: '20% 5%',
 	})}
 `;
 
 const Photo = styled.img`
 	position: absolute;
+	z-index: 10;
 	margin-top: -1rem;
 	width: 15vw;
 	height: 15vw;
@@ -97,7 +86,7 @@ const Photo = styled.img`
 	border-radius: 50%;
 	object-fit: contain;
 
-	${mobile({ width: '15rem', height: '15rem', marginTop: '5%' })}
+	${mobile({ width: '20vh', height: '20vh', marginTop: '5%' })}
 `;
 
 const Container = styled.div`
@@ -141,6 +130,7 @@ const Wrapper = styled.div`
 	align-items: center;
 	justify-content: center;
 	background-color: #2f2f2f;
+	overflow: hidden;
 `;
 
 const Loading = styled.div`
