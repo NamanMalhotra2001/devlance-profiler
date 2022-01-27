@@ -8,6 +8,8 @@ function LoginTab({ profile: p, editable, setProfile }) {
 			<FieldContainer>
 				<Label>Username:</Label>
 				<Field
+					disabled={editable ? false : true}
+					tabIndex={editable ? 1 : -1}
 					value={`${p.login.username}`}
 					onChange={(e) =>
 						setProfile((prev) => ({
@@ -25,6 +27,8 @@ function LoginTab({ profile: p, editable, setProfile }) {
 			<FieldContainer>
 				<Label>Password:</Label>
 				<Field
+					disabled={editable ? false : true}
+					tabIndex={editable ? 2 : -1}
 					type={editable ? 'text' : 'password'}
 					value={`${p.login.password}`}
 					onChange={(e) =>
@@ -48,6 +52,7 @@ export default LoginTab;
 // ########## styled components ##########
 const Field = styled.input`
 	box-sizing: border-box;
+	color: #424242;
 	width: 20vw;
 	height: 100%;
 	padding: 0 0.5rem;
@@ -65,7 +70,6 @@ const Field = styled.input`
 					border: solid 1px black;
 			  `
 			: css`
-					pointer-events: none;
 					border: none;
 			  `}
 `;

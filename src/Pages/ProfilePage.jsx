@@ -10,7 +10,7 @@ import LoginTab from '../Components/LoginTab';
 function ProfilePage() {
 	// ########## states ##########
 	const [profile, setProfile] = useState(undefined);
-	const [activeTab, setActiveTab] = useState('con');
+	const [activeTab, setActiveTab] = useState('per');
 	const [editable, setEditable] = useState(false);
 	const [height, setHeight] = useState(0);
 
@@ -100,6 +100,11 @@ const EditButton = styled.button`
 	font-size: 1.6rem;
 	font-weight: bolder;
 	border-radius: 1rem;
+	transition: 0.2s;
+
+	:hover {
+		background-color: #2e223cf7;
+	}
 
 	${mobile({ cursor: 'default' })}
 `;

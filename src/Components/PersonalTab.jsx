@@ -7,44 +7,90 @@ function PersonalTab({ profile: p, editable, setProfile }) {
 		<div>
 			<FieldContainer>
 				<Label>Name:</Label>
-				<Field
-					value={`${p.name.first} ${p.name.last}`}
-					onChange={(e) =>
-						setProfile((prev) => ({
-							...prev,
-							name: {
-								...prev.name,
-								first: e.target.value.split(' ')[0],
-								last: e.target.value.split(' ')[1],
-							},
-						}))
-					}
-					editable={editable}
-				/>
+				{!editable ? (
+					<Field
+						disabled
+						tabIndex={editable ? 1 : -1}
+						defaultValue={`${p.name.first} ${p.name.last}`}
+					/>
+				) : (
+					<div style={{ height: '100%' }}>
+						<EditField
+							value={p.name.first}
+							placeholder='first name'
+							onChange={(e) =>
+								setProfile((prev) => ({
+									...prev,
+									name: {
+										...prev.name,
+										first: e.target.value,
+									},
+								}))
+							}
+						/>
+						<EditField
+							value={p.name.last}
+							placeholder='last name'
+							onChange={(e) =>
+								setProfile((prev) => ({
+									...prev,
+									name: {
+										...prev.name,
+										last: e.target.value,
+									},
+								}))
+							}
+						/>
+					</div>
+				)}
 			</FieldContainer>
 
 			<FieldContainer>
 				<Label>Address:</Label>
-				<Field
-					value={`${p.location.city}, ${p.location.country}`}
-					onChange={(e) =>
-						setProfile((prev) => ({
-							...prev,
-							location: {
-								...prev.location,
-								city: e.target.value.split(', ')[0],
-								country: e.target.value.split(', ')[1],
-							},
-						}))
-					}
-					editable={editable}
-				/>
+				{!editable ? (
+					<Field
+						disabled
+						tabIndex={editable ? 2 : -1}
+						defaultValue={`${p.location.state}, ${p.location.country}`}
+					/>
+				) : (
+					<div style={{ height: '100%' }}>
+						<EditField
+							value={p.location.state}
+							placeholder='state'
+							onChange={(e) =>
+								setProfile((prev) => ({
+									...prev,
+									location: {
+										...prev.location,
+										state: e.target.value,
+									},
+								}))
+							}
+						/>
+						<EditField
+							value={p.location.country}
+							placeholder='country'
+							onChange={(e) =>
+								setProfile((prev) => ({
+									...prev,
+									location: {
+										...prev.location,
+										country: e.target.value,
+									},
+								}))
+							}
+						/>
+					</div>
+				)}
 			</FieldContainer>
 
 			<div style={{ display: 'flex' }}>
 				<AgeGenderContainer>
 					<Label>Age:</Label>
 					<Age
+						disabled={editable ? false : true}
+						tabIndex={editable ? 3 : -1}
 						value={p.dob.age}
 						onChange={(e) =>
 							setProfile((prev) => ({
@@ -63,6 +109,8 @@ function PersonalTab({ profile: p, editable, setProfile }) {
 				<AgeGenderContainer>
 					<Label>Gender:</Label>
 					<Gender
+						disabled={editable ? false : true}
+						tabIndex={editable ? 4 : -1}
 						editable={editable}
 						value={p.gender}
 						onChange={(e) =>
@@ -84,8 +132,40 @@ function PersonalTab({ profile: p, editable, setProfile }) {
 export default PersonalTab;
 
 // ########## styled components ##########
+const Field = styled.input`
+	box-sizing: border-box;
+	color: #424242;
+	width: 20vw;
+	height: 100%;
+	padding: 0 0.5rem;
+	border: none;
+	border-radius: 10px;
+	font-family: Rubik;
+	font-size: 1.4rem;
+	text-align: left;
+
+	${mobile({ width: '60vw' })}
+`;
+
+const EditField = styled.input`
+	box-sizing: border-box;
+	color: #424242;
+	width: 9vw;
+	margin-right: 1vw;
+	height: 100%;
+	padding: 0 0.5rem;
+	border: solid 1px black;
+	border-radius: 10px;
+	font-family: Rubik;
+	font-size: 1.4rem;
+	text-align: left;
+
+	${mobile({ width: '29vw' })}
+`;
+
 const Gender = styled.select`
 	box-sizing: border-box;
+	color: #424242;
 	width: 5rem;
 	height: 100%;
 	padding: 0 0.5rem;
@@ -102,7 +182,6 @@ const Gender = styled.select`
 					border: solid 1px black;
 			  `
 			: css`
-					pointer-events: none;
 					border: none;
 					-moz-appearance: none;
 					-webkit-appearance: none;
@@ -111,6 +190,7 @@ const Gender = styled.select`
 
 const Age = styled.input`
 	box-sizing: border-box;
+	color: #424242;
 	width: 5vw;
 	height: 100%;
 	padding: 0 0.5rem;
@@ -127,7 +207,6 @@ const Age = styled.input`
 					border: solid 1px black;
 			  `
 			: css`
-					pointer-events: none;
 					border: none;
 			  `}
 `;
@@ -138,30 +217,6 @@ const AgeGenderContainer = styled.div`
 	padding: 0.4rem 0;
 	display: flex;
 	align-items: center;
-`;
-
-const Field = styled.input`
-	box-sizing: border-box;
-	width: 20vw;
-	height: 100%;
-	padding: 0 0.5rem;
-	border: solid 1px black;
-	border-radius: 10px;
-	font-family: Rubik;
-	font-size: 1.4rem;
-	text-align: left;
-
-	${mobile({ width: '60vw' })}
-
-	${(props) =>
-		props.editable === true
-			? css`
-					border: solid 1px black;
-			  `
-			: css`
-					pointer-events: none;
-					border: none;
-			  `}
 `;
 
 const Label = styled.h1`

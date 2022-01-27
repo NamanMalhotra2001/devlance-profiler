@@ -8,6 +8,8 @@ function ContactTab({ profile: p, editable, setProfile }) {
 			<FieldContainer>
 				<Label>Email:</Label>
 				<Field
+					disabled={editable ? false : true}
+					tabIndex={editable ? 1 : -1}
 					value={`${p.email}`}
 					onChange={(e) =>
 						setProfile((prev) => ({
@@ -22,6 +24,8 @@ function ContactTab({ profile: p, editable, setProfile }) {
 			<FieldContainer>
 				<Label>Cell:</Label>
 				<Field
+					disabled={editable ? false : true}
+					tabIndex={editable ? 2 : -1}
 					value={p.cell
 						.replace(/-/g, '')
 						.replace(/ /g, '')
@@ -41,6 +45,8 @@ function ContactTab({ profile: p, editable, setProfile }) {
 			<FieldContainer>
 				<Label>Phone:</Label>
 				<Field
+					disabled={editable ? false : true}
+					tabIndex={editable ? 3 : -1}
 					value={p.phone
 						.replace(/-/g, '')
 						.replace(/ /g, '')
@@ -68,6 +74,7 @@ export default ContactTab;
 // ########## styled components ##########
 const Field = styled.input`
 	box-sizing: border-box;
+	color: #424242;
 	width: 20vw;
 	height: 100%;
 	padding: 0 0.5rem;
@@ -85,7 +92,6 @@ const Field = styled.input`
 					border: solid 1px black;
 			  `
 			: css`
-					pointer-events: none;
 					border: none;
 			  `}
 `;
