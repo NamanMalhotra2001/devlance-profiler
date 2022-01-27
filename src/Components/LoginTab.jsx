@@ -8,13 +8,13 @@ function LoginTab({ profile: p, editable, setProfile }) {
 			<FieldContainer>
 				<Label>Username:</Label>
 				<Field
-					value={`${p.name.first} ${p.name.last}`}
+					value={`${p.login.username}`}
 					onChange={(e) =>
 						setProfile((prev) => ({
 							...prev,
-							name: {
-								first: e.target.value.split(' ')[0],
-								last: e.target.value.split(' ')[1],
+							login: {
+								...prev.login,
+								username: e.target.value,
 							},
 						}))
 					}
@@ -25,13 +25,14 @@ function LoginTab({ profile: p, editable, setProfile }) {
 			<FieldContainer>
 				<Label>Password:</Label>
 				<Field
-					value={`${p.location.city}, ${p.location.country}`}
+					type={editable ? 'text' : 'password'}
+					value={`${p.login.password}`}
 					onChange={(e) =>
 						setProfile((prev) => ({
 							...prev,
-							location: {
-								city: e.target.value.split(', ')[0],
-								country: e.target.value.split(', ')[1],
+							login: {
+								...prev.login,
+								password: e.target.value,
 							},
 						}))
 					}
@@ -59,7 +60,7 @@ const Field = styled.input`
 	${mobile({ width: '58vw' })}
 
 	${(props) =>
-		props.editable === true
+		props.editable.toString() === 'true'
 			? css`
 					border: solid 1px black;
 			  `

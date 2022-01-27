@@ -13,6 +13,7 @@ function PersonalTab({ profile: p, editable, setProfile }) {
 						setProfile((prev) => ({
 							...prev,
 							name: {
+								...prev.name,
 								first: e.target.value.split(' ')[0],
 								last: e.target.value.split(' ')[1],
 							},
@@ -30,6 +31,7 @@ function PersonalTab({ profile: p, editable, setProfile }) {
 						setProfile((prev) => ({
 							...prev,
 							location: {
+								...prev.location,
 								city: e.target.value.split(', ')[0],
 								country: e.target.value.split(', ')[1],
 							},
@@ -47,7 +49,10 @@ function PersonalTab({ profile: p, editable, setProfile }) {
 						onChange={(e) =>
 							setProfile((prev) => ({
 								...prev,
-								dob: { age: e.target.value },
+								dob: {
+									...prev.dob,
+									age: e.target.value,
+								},
 							}))
 						}
 						type='number'
@@ -92,7 +97,7 @@ const Gender = styled.select`
 	${mobile({ width: '4rem' })}
 
 	${(props) =>
-		props.editable === true
+		props.editable.toString() === 'true'
 			? css`
 					border: solid 1px black;
 			  `

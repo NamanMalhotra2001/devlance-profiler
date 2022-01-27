@@ -8,14 +8,11 @@ function ContactTab({ profile: p, editable, setProfile }) {
 			<FieldContainer>
 				<Label>Email:</Label>
 				<Field
-					value={`${p.name.first} ${p.name.last}`}
+					value={`${p.email}`}
 					onChange={(e) =>
 						setProfile((prev) => ({
 							...prev,
-							name: {
-								first: e.target.value.split(' ')[0],
-								last: e.target.value.split(' ')[1],
-							},
+							email: e.target.value,
 						}))
 					}
 					editable={editable}
@@ -25,16 +22,18 @@ function ContactTab({ profile: p, editable, setProfile }) {
 			<FieldContainer>
 				<Label>Cell:</Label>
 				<Field
-					value={`${p.location.city}, ${p.location.country}`}
+					value={p.cell
+						.replace(/-/g, '')
+						.replace(/ /g, '')
+						.replace('(', '')
+						.replace(')', '')}
 					onChange={(e) =>
 						setProfile((prev) => ({
 							...prev,
-							location: {
-								city: e.target.value.split(', ')[0],
-								country: e.target.value.split(', ')[1],
-							},
+							cell: e.target.value,
 						}))
 					}
+					maxLength='10'
 					editable={editable}
 				/>
 			</FieldContainer>
@@ -42,16 +41,21 @@ function ContactTab({ profile: p, editable, setProfile }) {
 			<FieldContainer>
 				<Label>Phone:</Label>
 				<Field
-					value={`${p.location.city}, ${p.location.country}`}
-					onChange={(e) =>
+					value={p.phone
+						.replace(/-/g, '')
+						.replace(/ /g, '')
+						.replace('(', '')
+						.replace(')', '')}
+					onChange={(e) => {
 						setProfile((prev) => ({
 							...prev,
-							location: {
-								city: e.target.value.split(', ')[0],
-								country: e.target.value.split(', ')[1],
-							},
-						}))
-					}
+							phone: e.target.value.replace(
+								/[a-zA-Z&^!@#,` +()$~%.'":*?<>{}]/g,
+								''
+							),
+						}));
+					}}
+					maxLength='10'
 					editable={editable}
 				/>
 			</FieldContainer>
@@ -76,7 +80,7 @@ const Field = styled.input`
 	${mobile({ width: '60vw' })}
 
 	${(props) =>
-		props.editable === true
+		props.editable.toString() === 'true'
 			? css`
 					border: solid 1px black;
 			  `

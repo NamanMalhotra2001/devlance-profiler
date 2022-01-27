@@ -10,7 +10,7 @@ import LoginTab from '../Components/LoginTab';
 function ProfilePage() {
 	// ########## states ##########
 	const [profile, setProfile] = useState(undefined);
-	const [activeTab, setActiveTab] = useState('per');
+	const [activeTab, setActiveTab] = useState('con');
 	const [editable, setEditable] = useState(false);
 	const [height, setHeight] = useState(0);
 
