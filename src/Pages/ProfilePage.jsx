@@ -9,6 +9,7 @@ function ProfilePage() {
 	// ########## states ##########
 	const [profile, setProfile] = useState(undefined);
 	const [activePage, setActivePage] = useState('per');
+	const [editable, setEditable] = useState(false);
 
 	// ########## fetching data ##########
 	useEffect(() => {
@@ -31,8 +32,16 @@ function ProfilePage() {
 					<Photo src={profile.picture.large} alt='' />
 
 					<TabContainer>
-						<PersonalTab />
-						<EditButton>Edit</EditButton>
+						<PersonalTab
+							profile={profile}
+							editable={editable}
+							setProfile={setProfile}
+						/>
+						<EditButton
+							onClick={() => setEditable((prev) => !prev)}
+						>
+							{editable ? 'Save' : 'Edit'}
+						</EditButton>
 					</TabContainer>
 
 					<Navigator
@@ -49,18 +58,25 @@ export default ProfilePage;
 
 // ########## styled components ##########
 const EditButton = styled.button`
+	cursor: pointer;
+	background-color: #2e223c;
+	color: white;
 	position: absolute;
-	width: 20%;
+	width: 30%;
+	min-height: 15%;
 	bottom: 5%;
-	font-family: Dongle;
+	font-family: Rubik;
 	font-size: 1.6rem;
+	font-weight: bolder;
 	border-radius: 1rem;
+
+	${mobile({ cursor: 'default' })}
 `;
 
 const TabContainer = styled.div`
 	background-color: white;
 	position: relative;
-	width: 70%;
+	padding: 0 5%;
 	min-height: 60%;
 	margin-top: 15%;
 	display: flex;
@@ -77,11 +93,11 @@ const TabContainer = styled.div`
 `;
 
 const Photo = styled.img`
+	width: 15vw;
+	height: 15vw;
 	position: absolute;
 	z-index: 10;
 	margin-top: -1rem;
-	width: 15vw;
-	height: 15vw;
 	border: solid 3px black;
 	border-radius: 50%;
 	object-fit: contain;
@@ -125,12 +141,13 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
+	background-color: #2f2f2f;
 	height: 100vh;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: #2f2f2f;
 	overflow: hidden;
+	font-family: Rubik;
 `;
 
 const Loading = styled.div`

@@ -17,7 +17,7 @@ function Navigator({ activePage, setActive }) {
 				onClick={() => setActive('per')}
 			>
 				<FcBusinessman />
-				<div className='text active'>Personal</div>
+				<div className='text'>Personal</div>
 			</Tab>
 			<Tab
 				en={activePage === 'log' ? 't' : ''}
@@ -34,14 +34,13 @@ export default Navigator;
 
 // ########## styled components ##########
 const Tab = styled.span`
-	cursor: pointer;
-
-	margin: 0 5px;
-	padding: 10px;
-
-	height: 2.5rem;
+	overflow: hidden;
 	background-color: #1e1727;
 	color: white;
+	cursor: pointer;
+	height: 2.5rem;
+	margin: 0 5px;
+	padding: 10px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -52,23 +51,25 @@ const Tab = styled.span`
 	${(props) =>
 		props.en === 't'
 			? css`
-					width: 40%;
-					animation: animate 0.7s;
+					width: 60%;
+					font-size: 2rem;
+					animation: animate 0.8s;
 					@keyframes animate {
 						from {
 							width: 20%;
 						}
 						to {
-							width: 40%;
+							width: 60%;
 						}
 					}
 			  `
 			: css`
 					width: 3.5rem;
+					font-size: 3rem;
 					animation: ranimate 0.3s;
 					@keyframes ranimate {
 						from {
-							width: 40%;
+							width: 60%;
 						}
 						to {
 							width: 3.5rem;
@@ -96,10 +97,6 @@ const Container = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
-	font-size: 3.5rem;
-	font-family: Dongle;
-
 	position: absolute;
 	bottom: 0;
 	background-color: white;
@@ -107,5 +104,5 @@ const Container = styled.div`
 	width: 30vw;
 	height: 10%;
 
-	${mobile({ width: '100vw', fontSize: '2.5rem' })}
+	${mobile({ width: '100vw', fontSize: '2rem' })}
 `;
