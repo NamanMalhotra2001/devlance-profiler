@@ -12,8 +12,11 @@ function ProfilePage() {
 	const [profile, setProfile] = useState(undefined);
 	const [activeTab, setActiveTab] = useState('per');
 	const [editable, setEditable] = useState(false);
+	const [height, setHeight] = useState(0);
 
-	const height = window.innerHeight;
+	useEffect(() => {
+		setHeight(window.innerHeight);
+	}, []);
 
 	// ########## fetching data ##########
 	useEffect(() => {
