@@ -2,25 +2,25 @@ import { FcBusinessman, FcLock, FcPhone } from 'react-icons/fc';
 import styled, { css } from 'styled-components';
 import { mobile } from '../responsive';
 
-function Navigator({ activePage, setActive }) {
+function Navigator({ activeTab, setActive }) {
 	return (
 		<Container>
 			<Tab
-				en={activePage === 'con' ? 't' : ''}
+				en={activeTab === 'con' ? 't' : ''}
 				onClick={() => setActive('con')}
 			>
 				<FcPhone style={{ transform: 'rotate(-90deg)' }} />
 				<div className='text'>Contact</div>
 			</Tab>
 			<Tab
-				en={activePage === 'per' ? 't' : ''}
+				en={activeTab === 'per' ? 't' : ''}
 				onClick={() => setActive('per')}
 			>
 				<FcBusinessman />
 				<div className='text'>Personal</div>
 			</Tab>
 			<Tab
-				en={activePage === 'log' ? 't' : ''}
+				en={activeTab === 'log' ? 't' : ''}
 				onClick={() => setActive('log')}
 			>
 				<FcLock />
@@ -65,7 +65,7 @@ const Tab = styled.span`
 			  `
 			: css`
 					width: 3.5rem;
-					font-size: 3rem;
+					font-size: 2rem;
 					animation: ranimate 0.3s;
 					@keyframes ranimate {
 						from {

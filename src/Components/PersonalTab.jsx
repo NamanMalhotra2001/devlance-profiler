@@ -161,7 +161,7 @@ const Field = styled.input`
 
 const Label = styled.h1`
 	user-select: none;
-	width: 6vw;
+	width: 8vw;
 	margin-right: 1rem;
 	font-family: Rubik;
 	font-size: 1.5rem;

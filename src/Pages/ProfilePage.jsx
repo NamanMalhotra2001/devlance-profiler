@@ -4,12 +4,16 @@ import { mobile } from '../responsive';
 // Components
 import Navigator from '../Components/Navigator';
 import PersonalTab from '../Components/PersonalTab';
+import ContactTab from '../Components/ContactTab';
+import LoginTab from '../Components/LoginTab';
 
 function ProfilePage() {
 	// ########## states ##########
 	const [profile, setProfile] = useState(undefined);
-	const [activePage, setActivePage] = useState('per');
+	const [activeTab, setActiveTab] = useState('per');
 	const [editable, setEditable] = useState(false);
+
+	const height = window.innerHeight;
 
 	// ########## fetching data ##########
 	useEffect(() => {
@@ -24,7 +28,7 @@ function ProfilePage() {
 	}, []);
 
 	return (
-		<Wrapper>
+		<Wrapper height={height}>
 			{profile === undefined ? (
 				<Loading />
 			) : (
@@ -32,11 +36,35 @@ function ProfilePage() {
 					<Photo src={profile.picture.large} alt='' />
 
 					<TabContainer>
-						<PersonalTab
-							profile={profile}
-							editable={editable}
-							setProfile={setProfile}
-						/>
+						{activeTab === 'per' ? (
+							<PersonalTab
+								profile={profile}
+								editable={editable}
+								setProfile={setProfile}
+							/>
+						) : (
+							''
+						)}
+
+						{activeTab === 'con' ? (
+							<ContactTab
+								profile={profile}
+								editable={editable}
+								setProfile={setProfile}
+							/>
+						) : (
+							''
+						)}
+
+						{activeTab === 'log' ? (
+							<LoginTab
+								profile={profile}
+								editable={editable}
+								setProfile={setProfile}
+							/>
+						) : (
+							''
+						)}
 						<EditButton
 							onClick={() => setEditable((prev) => !prev)}
 						>
@@ -45,8 +73,8 @@ function ProfilePage() {
 					</TabContainer>
 
 					<Navigator
-						activePage={activePage}
-						setActive={setActivePage}
+						activeTab={activeTab}
+						setActive={setActiveTab}
 					/>
 				</Container>
 			)}
@@ -142,7 +170,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
 	background-color: #2f2f2f;
-	height: 100vh;
+	height: ${(props) => `${props.height}px`};
 	display: flex;
 	align-items: center;
 	justify-content: center;
